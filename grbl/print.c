@@ -22,14 +22,14 @@
 #include "print.h"
 #include "grbl.h"
 
-void printString(const char *s)
+void print_string(const char *s)
 {
     while (*s)
         serial_write(*s++);
 }
 
 // Print a string stored in PGM-memory
-void printPgmString(const char *s)
+void print_string_P(const char *s)
 {
     char c;
     while ((c = pgm_read_byte_near(s++)))
@@ -120,7 +120,7 @@ void print_uint32_base10(uint32_t n)
         serial_write('0' + buf[i - 1]);
 }
 
-void printInteger(long n)
+void print_int32(long n)
 {
     if (n < 0)
     {
@@ -138,7 +138,7 @@ void printInteger(long n)
 // may be set by the user. The integer is then efficiently converted to a string.
 // NOTE: AVR '%' and '/' integer operations are very efficient. Bitshifting speed-up
 // techniques are actually just slightly slower. Found this out the hard way.
-void printFloat(float n, uint8_t decimal_places)
+void print_float(float n, uint8_t decimal_places)
 {
     if (n < 0)
     {
@@ -191,27 +191,27 @@ void printFloat(float n, uint8_t decimal_places)
 // in the config.h.
 //  - CoordValue: Handles all position or coordinate values in inches or mm reporting.
 //  - RateValue: Handles feed rate and current velocity in inches or mm reporting.
-void printFloat_CoordValue(float n)
+void print_float_coord_value(float n)
 {
     if (bit_istrue(settings.flags, BITFLAG_REPORT_INCHES))
     {
-        printFloat(n * INCH_PER_MM, N_DECIMAL_COORDVALUE_INCH);
+        print_float(n * INCH_PER_MM, N_DECIMAL_COORDVALUE_INCH);
     }
     else
     {
-        printFloat(n, N_DECIMAL_COORDVALUE_MM);
+        print_float(n, N_DECIMAL_COORDVALUE_MM);
     }
 }
 
-void printFloat_RateValue(float n)
+void print_float_rate_value(float n)
 {
     if (bit_istrue(settings.flags, BITFLAG_REPORT_INCHES))
     {
-        printFloat(n * INCH_PER_MM, N_DECIMAL_RATEVALUE_INCH);
+        print_float(n * INCH_PER_MM, N_DECIMAL_RATEVALUE_INCH);
     }
     else
     {
-        printFloat(n, N_DECIMAL_RATEVALUE_MM);
+        print_float(n, N_DECIMAL_RATEVALUE_MM);
     }
 }
 

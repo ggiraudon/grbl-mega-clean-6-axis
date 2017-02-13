@@ -49,9 +49,7 @@ void gc_init()
 
     // Load default G54 coordinate system.
     if (!(settings_read_coord_data(gc_state.modal.coord_select, gc_state.coord_system)))
-    {
         report_status_message(STATUS_SETTING_READ_FAIL);
-    }
 }
 
 // Sets g-code parser position in mm. Input in steps. Called by the system abort and hard
@@ -93,7 +91,8 @@ uint8_t gc_execute_line(char *line)
 
     // Determine if the line is a jogging motion or a normal g-code block.
     if (line[0] == '$')
-    { // NOTE: `$J=` already parsed when passed to this function.
+    {
+        // NOTE: `$J=` already parsed when passed to this function.
         // Set G1 and G94 enforced modes to ensure accurate error checks.
         gc_parser_flags |= GC_PARSER_JOG_MOTION;
         gc_block.modal.motion = MOTION_MODE_LINEAR;
@@ -1194,9 +1193,7 @@ uint8_t gc_execute_line(char *line)
         bit_false(value_words, (bit(WORD_N)|bit(WORD_F)|bit(WORD_S)|bit(WORD_T))); // Remove single-meaning value words.
     }
     if (axis_command)
-    {
-        bit_false(value_words, (bit(WORD_X)|bit(WORD_Y)|bit(WORD_Z)));
-    } // Remove axis words.
+        bit_false(value_words, (bit(WORD_X)|bit(WORD_Y)|bit(WORD_Z))); // Remove axis words.
     if (value_words)
     {
         FAIL(STATUS_GCODE_UNUSED_WORDS);

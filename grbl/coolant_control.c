@@ -75,15 +75,9 @@ void coolant_stop()
 // parser program end, and g-code parser coolant_sync().
 void coolant_set_state(uint8_t mode)
 {
-    if (sys.abort)
-    {
-        return;
-    } // Block during abort.
+    if (sys.abort) return; // Block during abort.
 
-    if (mode == COOLANT_DISABLE)
-    {
-        coolant_stop();
-    }
+    if (mode == COOLANT_DISABLE) coolant_stop();
     else
     {
         if (mode & COOLANT_FLOOD_ENABLE)
@@ -111,10 +105,8 @@ void coolant_set_state(uint8_t mode)
 // if an abort or check-mode is active.
 void coolant_sync(uint8_t mode)
 {
-    if (sys.state == STATE_CHECK_MODE)
-    {
-        return;
-    }
+    if (sys.state == STATE_CHECK_MODE) return;
+
     protocol_buffer_synchronize(); // Ensure coolant turns on when specified in program.
     coolant_set_state(mode);
 }
