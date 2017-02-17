@@ -1327,6 +1327,15 @@ uint8_t gc_execute_line(char *line)
     gc_state.tool = gc_block.values.t;
 
     // [6. Change tool ]: NOT SUPPORTED
+    // TODO:
+    // - stop spindle if started, save position
+    // - [homing]
+    // - [output tool ID on GPIO] up to 32 tools
+    // - hold, wait for feed
+    // - [restore position]
+    // - restore spindle
+    // New mode, process it in hold/feed
+
 
     // [7. Spindle control ]:
     if (gc_state.modal.spindle != gc_block.modal.spindle)

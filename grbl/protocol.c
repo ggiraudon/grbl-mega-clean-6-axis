@@ -40,13 +40,10 @@ void protocol_main_loop()
 {
     // Perform some machine checks to make sure everything is good to go.
 #ifdef CHECK_LIMITS_AT_INIT
-    if (bit_istrue(settings.flags, BITFLAG_HARD_LIMIT_ENABLE))
+    if (bit_istrue(settings.flags, BITFLAG_HARD_LIMIT_ENABLE) && limits_get_state())
     {
-        if (limits_get_state())
-        {
-            sys.state = STATE_ALARM; // Ensure alarm state is active.
-            report_feedback_message(MESSAGE_CHECK_LIMITS);
-        }
+        sys.state = STATE_ALARM; // Ensure alarm state is active.
+        report_feedback_message(MESSAGE_CHECK_LIMITS);
     }
 #endif
     // Check for and report alarm state after a reset, error, or an initial power up.

@@ -53,7 +53,6 @@
 #define SETTINGS_RESTORE_BUILD_INFO    bit(3)
 #ifndef SETTINGS_RESTORE_ALL
 #define SETTINGS_RESTORE_ALL 0xFF // All bitflags
-#endif
 
 // Define EEPROM memory address location values for Grbl settings and parameters
 #define EEPROM_ADDR_GLOBAL         ((uint8_t *)1)
@@ -73,6 +72,60 @@
 #define AXIS_N_SETTINGS          4
 #define AXIS_SETTINGS_START_VAL  100 // NOTE: Reserving settings values >= 100 for axis settings. Up to 255.
 #define AXIS_SETTINGS_INCREMENT  10  // Must be greater than the number of axis settings
+
+typedef enum
+{
+    SETTING_PULSE_MICROSECONDS     = 0,
+    SETTING_STEPPER_IDLE_LOCK_TIME = 1,
+    SETTING_STEP_INVERT_MASK       = 2,
+    SETTING_DIR_INVERT_MASK        = 3,
+    SETTING_INVERT_ST_ENABLE       = 4,
+    SETTING_INVERT_LIMIT_PINS      = 5,
+    SETTING_INVERT_PROBE_PIN       = 6,
+    SETTING_STATUS_REPORT_MASK     = 10,
+    SETTING_JUNCTION_DEVIATION     = 11,
+    SETTING_ARC_TOLERANCE          = 12,
+    SETTING_REPORT_INCHES          = 13,
+    SETTING_SOFT_LIMIT_ENABLE      = 20,
+    SETTING_HARD_LIMIT_ENABLE      = 21,
+    SETTING_HOMING_ENABLE          = 22,
+    SETTING_HOMING_DIR_MASK        = 23,
+    SETTING_HOMING_FEED_RATE       = 24,
+    SETTING_HOMING_SEEK_RATE       = 25,
+    SETTING_HOMING_DEBOUNCE_DELAY  = 26,
+    SETTING_HOMING_PULLOFF         = 27,
+    SETTING_RPM_MAX                = 30,
+    SETTING_RPM_MIN                = 21,
+    SETTING_LASER_MODE             = 32,
+
+    SETTING_STEPS_MM_X             = 100,
+    SETTING_STEPS_MM_Y             = 101,
+    SETTING_STEPS_MM_Z             = 102,
+    SETTING_STEPS_MM_A             = 103,
+    SETTING_STEPS_MM_B             = 104,
+    SETTING_STEPS_MM_C             = 105,
+
+    SETTING_MAX_RATE_X             = 110,
+    SETTING_MAX_RATE_Y             = 111,
+    SETTING_MAX_RATE_Z             = 112,
+    SETTING_MAX_RATE_A             = 113,
+    SETTING_MAX_RATE_B             = 114,
+    SETTING_MAX_RATE_C             = 115,
+
+    SETTING_ACCEL_X                = 120,
+    SETTING_ACCEL_Y                = 121,
+    SETTING_ACCEL_Z                = 122,
+    SETTING_ACCEL_A                = 123,
+    SETTING_ACCEL_B                = 124,
+    SETTING_ACCEL_C                = 125,
+
+    SETTING_MAX_TRAVEL_X           = 130,
+    SETTING_MAX_TRAVEL_Y           = 131,
+    SETTING_MAX_TRAVEL_Z           = 132,
+    SETTING_MAX_TRAVEL_A           = 133,
+    SETTING_MAX_TRAVEL_B           = 134,
+    SETTING_MAX_TRAVEL_C           = 135,
+} setting_t;
 
 // Global persistent settings (Stored from byte EEPROM_ADDR_GLOBAL onwards)
 typedef struct
